@@ -1,0 +1,274 @@
+DAX FORMULAS USED IN PROJECT
+RFM BASED CUSTOMER SEGMENTATION ANALYSIS
+
+1. TotalRevenue =
+SUMX(
+    sales,
+    sales[Quantity] * sales[Price]
+)
+
+
+2. TotalCustomers =
+DISTINCTCOUNT(sales[Customer ID])
+
+
+3. TotalOrders =
+DISTINCTCOUNT(sales[Invoice])
+
+
+4. AvgOrderValue =
+DIVIDE(
+    [TotalRevenue],
+    [TotalOrders]
+)
+
+
+5. RepeatCustomers =
+CALCULATE(
+    DISTINCTCOUNT(sales[Customer ID]),
+    FILTER(
+        VALUES(sales[Customer ID]),
+        CALCULATE(DISTINCTCOUNT(sales[Invoice])) > 1
+    )
+)
+
+
+6. RetentionRate % =
+DIVIDE(
+    [RepeatCustomers],
+    [TotalCustomers]
+) * 100
+
+
+7. ChurnRisk % =
+100 - [RetentionRate %]
+
+
+8. Monetary =
+SUMX(
+    sales,
+    sales[Quantity] * sales[Price]
+)
+
+
+9. Frequency =
+DISTINCTCOUNT(sales[Invoice])
+
+
+10. Recency =
+DATEDIFF(
+    MAX(sales[InvoiceDate]),
+    TODAY(),
+    DAY
+)
+
+
+11. CLV =
+DIVIDE(
+    [TotalRevenue],
+    [TotalCustomers]
+)
+
+
+12. Profit % =
+DIVIDE(
+    [TotalRevenue] - SUM(sales[Price]),
+    [TotalRevenue]
+)
+
+
+13. SalesQuantity =
+SUM(sales[Quantity])
+
+
+14. RevenueByMonth =
+CALCULATE(
+    [TotalRevenue],
+    ALLEXCEPT(
+        sales,
+        sales[Month]
+    )
+)
+
+
+15. RepeatPurchase % =
+DIVIDE(
+    [RepeatCustomers],
+    [TotalCustomers]
+) * 100
+
+
+16. Customer Segment =
+SWITCH(
+    TRUE(),
+
+    [Monetary] > 5000 &&
+    [Frequency] > 10,
+    "Champions",
+
+    [Monetary] > 3000 &&
+    [Frequency] > 5,
+    "Loyal Customers",
+
+    [Monetary] > 1500,
+    "Potential Loyalists",
+
+    [Frequency] <= 3,
+    "At Risk",
+
+    "Lost Customers"
+)
+
+
+17. Champions =
+CALCULATE(
+    DISTINCTCOUNT(sales[Customer ID]),
+    FILTER(
+        sales,
+        sales[Customer Segment] = "Champions"
+    )
+)
+
+
+18. LoyalCustomers =
+CALCULATE(
+    DISTINCTCOUNT(sales[Customer ID]),
+    FILTER(
+        sales,
+        sales[Customer Segment] = "Loyal Customers"
+    )
+)
+
+
+19. PotentialLoyalists =
+CALCULATE(
+    DISTINCTCOUNT(sales[Customer ID]),
+    FILTER(
+        sales,
+        sales[Customer Segment] = "Potential Loyalists"
+    )
+)
+
+
+20. AtRiskCustomers =
+CALCULATE(
+    DISTINCTCOUNT(sales[Customer ID]),
+    FILTER(
+        sales,
+        sales[Customer Segment] = "At Risk"
+    )
+)
+
+
+21. LostCustomers =
+CALCULATE(
+    DISTINCTCOUNT(sales[Customer ID]),
+    FILTER(
+        sales,
+        sales[Customer Segment] = "Lost Customers"
+    )
+)
+
+
+22. Revenue by Segment =
+CALCULATE(
+    [TotalRevenue],
+    ALLEXCEPT(
+        sales,
+        sales[Customer Segment]
+    )
+)
+
+
+23. Revenue Growth =
+CALCULATE(
+    [TotalRevenue],
+    DATEADD(
+        sales[InvoiceDate],
+        -1,
+        MONTH
+    )
+)
+
+
+24. Retention Over Time =
+CALCULATE(
+    [RetentionRate %],
+    ALLEXCEPT(
+        sales,
+        sales[Month]
+    )
+)
+
+
+25. Churn Risk by Month =
+CALCULATE(
+    [ChurnRisk %],
+    ALLEXCEPT(
+        sales,
+        sales[Month]
+    )
+)
+
+
+26. Revenue by Country =
+CALCULATE(
+    [TotalRevenue],
+    ALLEXCEPT(
+        sales,
+        sales[Country]
+    )
+)
+
+
+27. Revenue by Description =
+CALCULATE(
+    [TotalRevenue],
+    ALLEXCEPT(
+        sales,
+        sales[Description]
+    )
+)
+
+
+28. Top Customers Revenue =
+TOPN(
+    10,
+    VALUES(sales[Customer ID]),
+    [TotalRevenue],
+    DESC
+)
+
+
+29. Monthly Customers =
+CALCULATE(
+    DISTINCTCOUNT(sales[Customer ID]),
+    ALLEXCEPT(
+        sales,
+        sales[Month]
+    )
+)
+
+
+30. Segment Revenue =
+SUMX(
+    sales,
+    sales[Quantity] * sales[Price]
+)
+
+
+31. Avg Monetary Value =
+AVERAGEX(
+    VALUES(sales[Customer ID]),
+    [Monetary]
+)
+
+
+32. Revenue Contribution % =
+DIVIDE(
+    [TotalRevenue],
+    CALCULATE(
+        [TotalRevenue],
+        ALL(sales)
+    )
+) * 100
