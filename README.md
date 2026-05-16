@@ -6,6 +6,8 @@ This project combines RFM segmentation, customer retention analytics, KPI monito
 
 Designed with a modern dark-themed UI, the dashboard focuses on transforming raw transactional data into meaningful business insights using data storytelling and analytics.
 
+---
+
 # Project Highlights
 
 * Built a fully interactive 3-page Power BI dashboard with a modern dark-themed interface
@@ -17,9 +19,12 @@ Designed with a modern dark-themed UI, the dashboard focuses on transforming raw
 * Designed a professional BI dashboard layout inspired by modern analytics reporting
 * Performed exploratory data analysis and customer behavior analysis using SQL queries before dashboard development
 
+---
+
 # Project Objective
 
 The primary goal of this project was to analyze customer purchasing patterns and identify:
+
 * High-value customers
 * Loyal customer groups
 * Customers at risk of churn
@@ -27,6 +32,8 @@ The primary goal of this project was to analyze customer purchasing patterns and
 * Retention and repeat purchase behavior
 
 The project helps businesses better understand customer engagement and improve customer-focused decision-making through interactive analytics and visualization.
+
+---
 
 # Dashboard Modules
 
@@ -78,6 +85,16 @@ Through this project, I gained practical experience in:
 * SQL-based exploratory data analysis
 * Interactive reporting using Power BI
 * Converting raw transactional data into actionable business insights
+
+---
+
+# Future Improvements
+
+* Integrating predictive analytics for churn prediction
+* Adding AI-driven customer recommendations
+* Connecting dashboards with live SQL databases
+* Enhancing automation using Power BI Service
+* Implementing advanced cohort analysis and forecasting
 
 ---
 
