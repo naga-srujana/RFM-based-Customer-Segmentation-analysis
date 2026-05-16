@@ -85,17 +85,6 @@ Through this project, I gained practical experience in:
 * SQL-based exploratory data analysis
 * Interactive reporting using Power BI
 * Converting raw transactional data into actionable business insights
-
----
-
-# Future Improvements
-
-* Integrating predictive analytics for churn prediction
-* Adding AI-driven customer recommendations
-* Connecting dashboards with live SQL databases
-* Enhancing automation using Power BI Service
-* Implementing advanced cohort analysis and forecasting
-
 ---
 
 # Author
