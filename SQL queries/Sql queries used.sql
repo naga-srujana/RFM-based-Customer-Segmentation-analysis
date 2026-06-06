@@ -1,13 +1,13 @@
  RFM BASED CUSTOMER SEGMENTATION ANALYSIS
-   SQL QUERIES USED
+ --  SQL QUERIES USED
 
 
- 1. CREATE DATABASE :
+-- 1. CREATE DATABASE :
 CREATE DATABASE customer_analysis;
 USE customer_analysis;
 
 
- 2. TOP CUSTOMERS BY REVENUE:
+-- 2. TOP CUSTOMERS BY REVENUE:
 SELECT `Customer ID`,
 SUM(Quantity * Price) AS TotalSpent
 FROM sales
@@ -16,21 +16,21 @@ ORDER BY TotalSpent DESC
 LIMIT 10;
 
 
-3. REVENUE BY COUNTRY:
+--3. REVENUE BY COUNTRY:
 SELECT  Country,
 SUM(Quantity * Price) AS Revenue
 FROM sales
 GROUP BY Country
 ORDER BY Revenue DESC;
 
- 4. MONTHLY REVENUE TREND:
+-- 4. MONTHLY REVENUE TREND:
 SELECT  MONTH(InvoiceDate) AS MonthNo,
 SUM(Quantity * Price) AS Revenue
 FROM sales
 GROUP BY MonthNo
 ORDER BY MonthNo;
 
- 5. TOP PRODUCTS BY REVENUE:
+-- 5. TOP PRODUCTS BY REVENUE:
 SELECT  Description,
 SUM(Quantity * Price) AS ProductRevenue
 FROM sales
@@ -38,37 +38,37 @@ GROUP BY Description
 ORDER BY ProductRevenue DESC
 LIMIT 10;
 
- 6. TOTAL ORDERS BY COUNTRY:
+-- 6. TOTAL ORDERS BY COUNTRY:
 SELECT Country,
 COUNT(DISTINCT Invoice) AS TotalOrders
 FROM sales
 GROUP BY Country
 ORDER BY TotalOrders DESC;
 
- 7. AVERAGE ORDER VALUE:
+-- 7. AVERAGE ORDER VALUE:
 SELECT AVG(Quantity * Price) AS AvgOrderValue
 FROM sales;
 
- 8. MONTHLY CUSTOMER COUNT:
+ --8. MONTHLY CUSTOMER COUNT:
 SELECT MONTH(InvoiceDate) AS MonthNo,
  COUNT(DISTINCT `Customer ID`) AS TotalCustomers
 FROM sales
 GROUP BY MonthNo
 ORDER BY MonthNo;
 
- 9. TOTAL REVENUE:
+ --9. TOTAL REVENUE:
 SELECT SUM(Quantity * Price) AS TotalRevenue
 FROM sales;
 
- 10. TOTAL CUSTOMERS:
+ -- 10. TOTAL CUSTOMERS:
 SELECT  COUNT(DISTINCT `Customer ID`) AS TotalCustomers
 FROM sales;
 
- 11. TOTAL ORDERS:
+-- 11. TOTAL ORDERS:
 SELECT COUNT(DISTINCT Invoice) AS TotalOrders
 FROM sales;
 
- 12. REPEAT CUSTOMERS:
+ --12. REPEAT CUSTOMERS:
 SELECT  COUNT(*) AS RepeatCustomers
 FROM
 (
@@ -80,7 +80,7 @@ FROM
 
 
 
- 13. CUSTOMER PURCHASE FREQUENCY
+-- 13. CUSTOMER PURCHASE FREQUENCY
 SELECT `Customer ID`,
  COUNT(DISTINCT Invoice) AS Frequency
 FROM sales
@@ -94,7 +94,7 @@ FROM sales
 GROUP BY `Customer ID`
 ORDER BY Monetary DESC;
 
- 15. RECENCY ANALYSIS
+-- 15. RECENCY ANALYSIS
 SELECT `Customer ID`,
     DATEDIFF(
         MAX(InvoiceDate),
@@ -104,7 +104,7 @@ FROM sales
 GROUP BY `Customer ID`
 ORDER BY Recency DESC;
 
- 16. RFM TABLE
+-- 16. RFM TABLE
 SELECT `Customer ID`,
 DATEDIFF(
         (SELECT MAX(InvoiceDate) FROM sales),
@@ -120,7 +120,7 @@ FROM sales
 GROUP BY `Customer ID`;
 
 
- 17. CUSTOMER SEGMENTATION
+-- 17. CUSTOMER SEGMENTATION
 
 SELECT `Customer ID`,
     SUM(Quantity * Price) AS Monetary,
@@ -148,7 +148,7 @@ FROM sales
 
 GROUP BY `Customer ID`;
 
-18. RETENTION RATE
+--18. RETENTION RATE
 SELECT
 (
     COUNT(DISTINCT CASE
@@ -169,7 +169,7 @@ FROM
 ) AS retention_table;
 
 
- 19. CHURN RISK CUSTOMERS
+-- 19. CHURN RISK CUSTOMERS
 
 SELECT
     `Customer ID`,
@@ -179,7 +179,7 @@ GROUP BY `Customer ID`
 HAVING Orders <= 2;
 
 
- 20. CUSTOMER LIFETIME VALUE (CLV)
+-- 20. CUSTOMER LIFETIME VALUE (CLV)
 SELECT
     `Customer ID`,
     SUM(Quantity * Price) AS CLV
